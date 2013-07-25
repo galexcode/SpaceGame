@@ -21,6 +21,8 @@ public class ShipControl : MonoBehaviour {
 	public float m_fMaxHeadAngle;
 	//las balas
 	public GameObject Bullet;
+	//cohetes
+	public GameObject Rocket;
 	//velocidad de las balas
 	public float m_fBulletSpeed;
 	//textura del cursor
@@ -84,6 +86,17 @@ public class ShipControl : MonoBehaviour {
 			Physics.IgnoreLayerCollision(bullet.layer, bullet.layer);
         	//le damos velocidad a la bala
         	bullet.rigidbody.AddForce(transform.forward * m_fBulletSpeed);
+			m_fTimeSinceLastShoot = 0.0f;
+		}
+		if(Input.GetButtonDown("Fire2") && m_fTimeSinceLastShoot >= m_fShootPeriod)
+		{
+			GameObject rocket;
+        	rocket = (GameObject)Instantiate(Rocket, transform.position + transform.forward * 0.4f, transform.rotation);
+			rocket = rocket.transform.GetChild(0).gameObject;
+			Physics.IgnoreCollision(collider, rocket.collider);
+			Physics.IgnoreLayerCollision(rocket.layer, rocket.layer);
+        	//al cohete no le damos velocidad porque lleva su propio sistema de control y movimiento
+        	
 			m_fTimeSinceLastShoot = 0.0f;
 		}
 	}
