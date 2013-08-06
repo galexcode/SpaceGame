@@ -13,13 +13,15 @@ public class GodCreation : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		CreateBasicEnemie();
+		StartCoroutine(EnemieCreator());
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		/*
 		if(m_iNumberOfBasicEnemies < 1)
 			CreateBasicEnemie();
+			*/
 	}
 	
 	void CreateBasicEnemie()
@@ -29,6 +31,17 @@ public class GodCreation : MonoBehaviour {
 		m_iNumberOfBasicEnemies++;
 	}
 	
+	//con rutinas asi no tenemos que comprobar en cada update si se ha destruido el enemigo,
+	//lo comprobamos cada 0.1 segundos
+	IEnumerator EnemieCreator()
+	{
+		while(true)
+		{
+			if(m_iNumberOfBasicEnemies < 1)
+				CreateBasicEnemie();
+			yield return new WaitForSeconds(0.1f);
+		}
+	}
 	//cada vez que una nave sea destruida, invocara esta funcion.
 	public void BasicEnemieDown()
 	{

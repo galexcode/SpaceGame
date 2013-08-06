@@ -20,11 +20,10 @@ public class RocketControl : MonoBehaviour {
 		m_tParentTransform.position += m_tParentTransform.forward * Time.deltaTime * 10.0f;
 
 		if(e_gObjective != null)
-		{
+			//que vaya girando lentamente
 			m_tParentTransform.forward += Vector3.Lerp(m_tParentTransform.forward, (e_gObjective.transform.position - m_tParentTransform.position), Time.deltaTime * 3.0f);
-			//m_tParentTransform.forward = (e_gObjective.transform.position - m_tParentTransform.position).normalized;
-		}
 		
+		//si el misil se va lejos, lo destruimos
 		if( (m_vInitialPos - transform.position).magnitude > 10.0f )
 			Destroy(m_tParentTransform.gameObject);
 	}
